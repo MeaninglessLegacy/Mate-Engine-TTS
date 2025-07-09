@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using LLMUnity;
 using UnityEngine.UI;
 using System.Collections;
+using System;
+using UnityEngine.Networking;
 
 namespace LLMUnitySamples
 {
@@ -53,6 +55,8 @@ namespace LLMUnitySamples
 
         public ScrollRect scrollRect; // Assign in Inspector
 
+        [Header("TTS")]
+        [SerializeField] private AudioSource _responseAudioSource;
 
         void Start()
         {
@@ -164,14 +168,18 @@ namespace LLMUnitySamples
             Bubble aiBubble = AddBubble("...", false);
 
             // Start playing audio if assigned
-            if (streamAudioSource != null)
-                streamAudioSource.Play();
+            //if (streamAudioSource != null)
+                //streamAudioSource.Play();
 
             // Start chat and stop audio after it's done
             Task chatTask = llmCharacter.Chat(message, aiBubble.SetText, () =>
             {
+                Debug.Log($"[UnityNeuroSpeech] Posting TTS with: {aiBubble.GetText()}");
+                StartCoroutine(PostText(aiBubble.GetText()));
                 if (streamAudioSource != null && streamAudioSource.isPlaying)
+                {
                     StartCoroutine(FadeOutStreamAudio());
+                }
                 AllowInput();
             });
 
@@ -192,7 +200,29 @@ namespace LLMUnitySamples
             streamAudioSource.volume = startVolume; // reset for next time
         }
 
+        /// <summary>
+        /// Sends the final response from Ollama to Coqui XTTS (running on the local server)
+        /// </summary>
+        private IEnumerator PostText(string text)
+        {
+            var bodyRaw = System.Text.Encoding.UTF8.GetBytes(text);
+            using (var request = new UnityWebRequest("http://localhost:7777/tts", "POST"))
+            {
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                request.downloadHandler = new DownloadHandlerAudioClip("http://localhost:7777/tts", AudioType.WAV);
+                request.SetRequestHeader("Content-Type", "text/plain");
 
+                yield return request.SendWebRequest();
+
+                if (request.result != UnityWebRequest.Result.Success) 
+                    Debug.Log($"[UnityNeuroSpeech] TTS server probably is not running! Full error message: {request.error}");
+                else
+                {
+                    _responseAudioSource.clip = DownloadHandlerAudioClip.GetContent(request);
+                    _responseAudioSource.Play();
+                }
+            }
+        }
 
         public void WarmUpCallback()
         {

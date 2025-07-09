@@ -1,3 +1,7 @@
+# Modifications
+- Using modified TTS python code and model from: https://github.com/HardCodeDev777/UnityNeuroSpeech
+- Using modified POST code from: https://github.com/HardCodeDev777/UnityNeuroSpeech
+
 # 🌐 Language / 言語選択
 
 - [English](#English)
