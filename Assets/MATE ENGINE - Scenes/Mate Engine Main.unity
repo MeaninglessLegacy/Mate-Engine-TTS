@@ -1469,7 +1469,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.9999893
+  m_Intensity: 0.99999446
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2576,7 +2576,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.26999998, b: 0.96203995, a: 1}
-  m_Intensity: 0.00000085974415
+  m_Intensity: 0.00000045393952
   m_Range: 0.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -18961,7 +18961,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0, g: 0.44799995, b: 1, a: 1}
-  m_Intensity: 0.0000017194883
+  m_Intensity: 0.00000090787904
   m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -19808,7 +19808,7 @@ AudioSource:
   m_Resource: {fileID: 8300000, guid: 5f28d64c9480ef748bafe1575c6ca730, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
-  m_Pitch: 1
+  m_Pitch: 1.03
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -20324,7 +20324,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0, g: 0.44799995, b: 1, a: 1}
-  m_Intensity: 0.0000012896162
+  m_Intensity: 0.0000006809093
   m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -40701,7 +40701,7 @@ MonoBehaviour:
   playerFontColor: {r: 0, g: 0, b: 0, a: 1}
   aiFontColor: {r: 1, g: 1, b: 1, a: 1}
   scrollRect: {fileID: 0}
-  _responseAudioSource: {fileID: 1197370323}
+  runJets: {fileID: 4193573058414611049}
 --- !u!222 &277621247759099892
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -81997,6 +81997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4193573058414611048}
   - component: {fileID: 275765899376245255}
+  - component: {fileID: 4193573058414611049}
   m_Layer: 5
   m_Name: ChatBot
   m_TagString: Untagged
@@ -85687,6 +85688,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4193573058414611049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3827550157259527165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4eea52bfee9a134aa1d6c355cb514a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  streamAudioSource: {fileID: 1197370323}
+  modelAsset: {fileID: 5022602860645237092, guid: e4c08c3145f7c764eb82448f81acb0a6, type: 3}
+  phonemeAsset: {fileID: 4900000, guid: caf2a3f404c53ca49b33459fa065321c, type: 3}
+  inputText: 
 --- !u!199 &4199243777882172729
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -124508,7 +124525,7 @@ MonoBehaviour:
     groupID: avatar_lights
     exclusiveTags:
     - lights
-    fadeCurrentValue: 0.9999893
+    fadeCurrentValue: 0.99999446
     fadeTarget: 1
     isFading: 1
     hasYSet: 0
@@ -124532,7 +124549,7 @@ MonoBehaviour:
     groupID: ambi_lights
     exclusiveTags:
     - lights
-    fadeCurrentValue: 0.00000042987207
+    fadeCurrentValue: 0.00000022696976
     fadeTarget: 0
     isFading: 1
     hasYSet: 0
@@ -124556,7 +124573,7 @@ MonoBehaviour:
     groupID: ambi_lights
     exclusiveTags:
     - lights
-    fadeCurrentValue: 0.00000042987207
+    fadeCurrentValue: 0.00000022696976
     fadeTarget: 0
     isFading: 1
     hasYSet: 0
@@ -124580,7 +124597,7 @@ MonoBehaviour:
     groupID: ambi_lights
     exclusiveTags:
     - lights
-    fadeCurrentValue: 0.00000042987207
+    fadeCurrentValue: 0.00000022696976
     fadeTarget: 0
     isFading: 1
     hasYSet: 0

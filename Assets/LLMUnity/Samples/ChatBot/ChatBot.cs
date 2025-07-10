@@ -56,7 +56,9 @@ namespace LLMUnitySamples
         public ScrollRect scrollRect; // Assign in Inspector
 
         [Header("TTS")]
-        [SerializeField] private AudioSource _responseAudioSource;
+        public RunJets runJets;
+
+        public 
 
         void Start()
         {
@@ -122,7 +124,6 @@ namespace LLMUnitySamples
             }
         }
 
-
         Bubble AddBubble(string message, bool isPlayerMessage)
         {
             Bubble bubble = new Bubble(chatContainer, isPlayerMessage ? playerUI : aiUI, isPlayerMessage ? "PlayerBubble" : "AIBubble", message);
@@ -153,6 +154,7 @@ namespace LLMUnitySamples
             for (int i=1; i<llmCharacter.chat.Count; i++) AddBubble(llmCharacter.chat[i].content, i%2==1);
         }
 
+        ElevenLabs elevenLabs = new("APIKEYTEMP");
         void onInputFieldSubmit(string newText)
         {
             inputBubble.ActivateInputField();
@@ -169,21 +171,58 @@ namespace LLMUnitySamples
 
             // Start playing audio if assigned
             //if (streamAudioSource != null)
-                //streamAudioSource.Play();
+            //    streamAudioSource.Play();
 
             // Start chat and stop audio after it's done
             Task chatTask = llmCharacter.Chat(message, aiBubble.SetText, () =>
             {
-                Debug.Log($"[UnityNeuroSpeech] Posting TTS with: {aiBubble.GetText()}");
-                StartCoroutine(PostText(aiBubble.GetText()));
-                if (streamAudioSource != null && streamAudioSource.isPlaying)
+                if (runJets != null)
                 {
-                    StartCoroutine(FadeOutStreamAudio());
+                    //runJets.inputText = aiBubble.GetText();
+                    //runJets.TextToSpeech();
                 }
+                StartCoroutine(ReqElevenLabs(aiBubble.GetText()));
+                //StartCoroutine(PostText(aiBubble.GetText()));
+                //if (streamAudioSource != null && streamAudioSource.isPlaying)
+                //{
+                //    StartCoroutine(FadeOutStreamAudio());
+                //}
                 AllowInput();
             });
 
             inputBubble.SetText("");
+        }
+
+        private IEnumerator ReqElevenLabs(string text)
+        {
+            yield return elevenLabs.RequestAudio(text, "IO1wenpW5SO7iKhu5V3C");
+            if(elevenLabs.clip != null)
+            {
+                streamAudioSource.clip = elevenLabs.clip;
+                streamAudioSource.Play();
+                elevenLabs.clip = null;
+            }
+        }
+
+        private IEnumerator PostText(string text)
+        {
+            var bodyRaw = System.Text.Encoding.UTF8.GetBytes(text);
+            using (var request = new UnityWebRequest("http://localhost:7777/tts", "POST"))
+            {
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                request.downloadHandler = new DownloadHandlerAudioClip("http://localhost:7777/tts", AudioType.WAV);
+                request.SetRequestHeader("Content-Type", "text/plain");
+
+                yield return request.SendWebRequest();
+
+                if (request.result != UnityWebRequest.Result.Success) Debug.Log($"[UnityNeuroSpeech] TTS server probably is not running! Full error message: {request.error}");
+
+                else
+                {
+                    streamAudioSource.clip = DownloadHandlerAudioClip.GetContent(request);
+                    streamAudioSource.Play();
+                }
+            }
         }
 
         private IEnumerator FadeOutStreamAudio(float duration = 0.5f)
@@ -198,30 +237,6 @@ namespace LLMUnitySamples
 
             streamAudioSource.Stop();
             streamAudioSource.volume = startVolume; // reset for next time
-        }
-
-        /// <summary>
-        /// Sends the final response from Ollama to Coqui XTTS (running on the local server)
-        /// </summary>
-        private IEnumerator PostText(string text)
-        {
-            var bodyRaw = System.Text.Encoding.UTF8.GetBytes(text);
-            using (var request = new UnityWebRequest("http://localhost:7777/tts", "POST"))
-            {
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerAudioClip("http://localhost:7777/tts", AudioType.WAV);
-                request.SetRequestHeader("Content-Type", "text/plain");
-
-                yield return request.SendWebRequest();
-
-                if (request.result != UnityWebRequest.Result.Success) 
-                    Debug.Log($"[UnityNeuroSpeech] TTS server probably is not running! Full error message: {request.error}");
-                else
-                {
-                    _responseAudioSource.clip = DownloadHandlerAudioClip.GetContent(request);
-                    _responseAudioSource.Play();
-                }
-            }
         }
 
         public void WarmUpCallback()

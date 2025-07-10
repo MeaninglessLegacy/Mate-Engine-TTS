@@ -81,3 +81,6 @@ UnityNeuroSpeech-main/server/TTSModel*
 
 # NeuroSpeech python venv
 UnityNeuroSpeech-main/server/venv*
+
+# Onnx models
+*.onnx

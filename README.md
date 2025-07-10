@@ -1,6 +1,7 @@
 # Modifications
-- Using modified TTS python code and model from: https://github.com/HardCodeDev777/UnityNeuroSpeech
-- Using modified POST code from: https://github.com/HardCodeDev777/UnityNeuroSpeech
+- Added ElevenLabs POST endpoint.
+- Added local TTS with https://huggingface.co/unity/inference-engine-jets-text-to-speech/tree/main.
+- Planning to add custom POST endpoint for own TTS model on cloud.
 
 # 🌐 Language / 言語選択
 
