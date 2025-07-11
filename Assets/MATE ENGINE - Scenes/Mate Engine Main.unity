@@ -797,6 +797,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268897440}
   m_CullTransparentMesh: 1
+--- !u!1 &289079100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 289079101}
+  - component: {fileID: 289079102}
+  m_Layer: 5
+  m_Name: ElevenLabs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &289079101
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289079100}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6669369101242956783}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &289079102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289079100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71b7e17f5537264bba9d9cfa94626bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  API_URL: https://api.elevenlabs.io/v1/text-to-speech/
+  API_KEY: 
+  voiceID: 
+  modelID: eleven_monolingual_v1
+  Streaming: 0
+  voiceSettings:
+    stability: 0.5
+    speed: 0.95
+    similarity_boost: 0.75
+    style: 0.5
+    use_speaker_boost: 1
+  audioClip: {fileID: 0}
 --- !u!1 &294741430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,7 +1529,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.99999446
+  m_Intensity: 0.99999654
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2576,7 +2636,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.26999998, b: 0.96203995, a: 1}
-  m_Intensity: 0.00000045393952
+  m_Intensity: 0.00000026068926
   m_Range: 0.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -18961,7 +19021,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0, g: 0.44799995, b: 1, a: 1}
-  m_Intensity: 0.00000090787904
+  m_Intensity: 0.0000005213785
   m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -19808,7 +19868,7 @@ AudioSource:
   m_Resource: {fileID: 8300000, guid: 5f28d64c9480ef748bafe1575c6ca730, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
-  m_Pitch: 1.03
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -20324,7 +20384,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0, g: 0.44799995, b: 1, a: 1}
-  m_Intensity: 0.0000006809093
+  m_Intensity: 0.0000003910339
   m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -22671,6 +22731,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837086587}
   m_CullTransparentMesh: 1
+--- !u!1 &1847890623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1847890624}
+  - component: {fileID: 1847890625}
+  m_Layer: 5
+  m_Name: JetsTTS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1847890624
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847890623}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6669369101242956783}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1847890625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847890623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4eea52bfee9a134aa1d6c355cb514a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelAsset: {fileID: 5022602860645237092, guid: e4c08c3145f7c764eb82448f81acb0a6, type: 3}
+  phonemeAsset: {fileID: 4900000, guid: caf2a3f404c53ca49b33459fa065321c, type: 3}
+  audioClip: {fileID: 0}
 --- !u!1 &1863525055
 GameObject:
   m_ObjectHideFlags: 0
@@ -40701,7 +40812,10 @@ MonoBehaviour:
   playerFontColor: {r: 0, g: 0, b: 0, a: 1}
   aiFontColor: {r: 1, g: 1, b: 1, a: 1}
   scrollRect: {fileID: 0}
-  runJets: {fileID: 4193573058414611049}
+  TTS_MODE: 3
+  petSpeakClip: {fileID: 8300000, guid: 5f28d64c9480ef748bafe1575c6ca730, type: 3}
+  elevenLabs: {fileID: 289079102}
+  jetsTTS: {fileID: 1847890625}
 --- !u!222 &277621247759099892
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -62608,8 +62722,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1400636322423431683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.48267046}
-  m_AnchorMax: {x: 1, y: 0.6815341}
+  m_AnchorMin: {x: 0, y: 0.58402836}
+  m_AnchorMax: {x: 1, y: 0.782892}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -81997,7 +82111,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4193573058414611048}
   - component: {fileID: 275765899376245255}
-  - component: {fileID: 4193573058414611049}
   m_Layer: 5
   m_Name: ChatBot
   m_TagString: Untagged
@@ -85688,22 +85801,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4193573058414611049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3827550157259527165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4eea52bfee9a134aa1d6c355cb514a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  streamAudioSource: {fileID: 1197370323}
-  modelAsset: {fileID: 5022602860645237092, guid: e4c08c3145f7c764eb82448f81acb0a6, type: 3}
-  phonemeAsset: {fileID: 4900000, guid: caf2a3f404c53ca49b33459fa065321c, type: 3}
-  inputText: 
 --- !u!199 &4199243777882172729
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -90181,7 +90278,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1089500962178558664}
   m_HandleRect: {fileID: 1931729262191726083}
   m_Direction: 2
-  m_Value: 0.60248226
+  m_Value: 0.7289999
   m_Size: 0.19886364
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -115776,7 +115873,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1121}
+  m_AnchoredPosition: {x: 0, y: 764.2202}
   m_SizeDelta: {x: 16.75, y: 3520}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6157746194943004343
@@ -119855,6 +119952,8 @@ Transform:
   - {fileID: 5341250460747488369}
   - {fileID: 2502733926385258299}
   - {fileID: 4193573058414611048}
+  - {fileID: 289079101}
+  - {fileID: 1847890624}
   m_Father: {fileID: 8116750886231050087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &6670427910596409977
@@ -121590,7 +121689,7 @@ MonoBehaviour:
     isTopmost: 1
     allowedApps: []
     bloom: 1
-    dayNight: 1
+    dayNight: 0
     enableParticles: 1
     petVolume: 1
     effectsVolume: 1
@@ -124525,7 +124624,7 @@ MonoBehaviour:
     groupID: avatar_lights
     exclusiveTags:
     - lights
-    fadeCurrentValue: 0.99999446
+    fadeCurrentValue: 0.99999654
     fadeTarget: 1
     isFading: 1
     hasYSet: 0
@@ -124549,7 +124648,7 @@ MonoBehaviour:
     groupID: ambi_lights
     exclusiveTags:
     - lights
-    fadeCurrentValue: 0.00000022696976
+    fadeCurrentValue: 0.00000013034463
     fadeTarget: 0
     isFading: 1
     hasYSet: 0
@@ -124573,7 +124672,7 @@ MonoBehaviour:
     groupID: ambi_lights
     exclusiveTags:
     - lights
-    fadeCurrentValue: 0.00000022696976
+    fadeCurrentValue: 0.00000013034463
     fadeTarget: 0
     isFading: 1
     hasYSet: 0
@@ -124597,7 +124696,7 @@ MonoBehaviour:
     groupID: ambi_lights
     exclusiveTags:
     - lights
-    fadeCurrentValue: 0.00000022696976
+    fadeCurrentValue: 0.00000013034463
     fadeTarget: 0
     isFading: 1
     hasYSet: 0

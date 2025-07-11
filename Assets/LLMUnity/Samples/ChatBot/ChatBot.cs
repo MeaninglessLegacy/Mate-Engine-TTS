@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 using UnityEngine.Networking;
+using TTS;
 
 namespace LLMUnitySamples
 {
@@ -55,10 +56,12 @@ namespace LLMUnitySamples
 
         public ScrollRect scrollRect; // Assign in Inspector
 
+        public enum TTSMode { Off, PetSpeak, JetsTTS, ElevenLabs, PostAPI_IN_PROGRESS }
         [Header("TTS")]
-        public RunJets runJets;
-
-        public 
+        public TTSMode TTS_MODE = TTSMode.PetSpeak;
+        public AudioClip petSpeakClip;
+        public ElevenLabs elevenLabs;
+        public JetsTTS jetsTTS;
 
         void Start()
         {
@@ -154,7 +157,6 @@ namespace LLMUnitySamples
             for (int i=1; i<llmCharacter.chat.Count; i++) AddBubble(llmCharacter.chat[i].content, i%2==1);
         }
 
-        ElevenLabs elevenLabs = new("APIKEYTEMP");
         void onInputFieldSubmit(string newText)
         {
             inputBubble.ActivateInputField();
@@ -170,58 +172,57 @@ namespace LLMUnitySamples
             Bubble aiBubble = AddBubble("...", false);
 
             // Start playing audio if assigned
-            //if (streamAudioSource != null)
-            //    streamAudioSource.Play();
+            if (streamAudioSource != null && TTS_MODE == TTSMode.PetSpeak)
+            {
+                streamAudioSource.clip = petSpeakClip;
+                streamAudioSource.Play();
+            }
 
             // Start chat and stop audio after it's done
             Task chatTask = llmCharacter.Chat(message, aiBubble.SetText, () =>
             {
-                if (runJets != null)
+                switch (TTS_MODE)
                 {
-                    //runJets.inputText = aiBubble.GetText();
-                    //runJets.TextToSpeech();
+                    case TTSMode.PetSpeak:
+                        if (streamAudioSource != null && streamAudioSource.isPlaying)
+                        {
+                            StartCoroutine(FadeOutStreamAudio());
+                        }
+                        break;
+                    case TTSMode.ElevenLabs:
+                        StartCoroutine(RequestElevenLabsClip(aiBubble.GetText()));
+                        break;
+                    case TTSMode.JetsTTS:
+                        StartCoroutine(RequestJetsTTS(aiBubble.GetText()));
+                        break;
+                    default:
+                        break;
                 }
-                StartCoroutine(ReqElevenLabs(aiBubble.GetText()));
-                //StartCoroutine(PostText(aiBubble.GetText()));
-                //if (streamAudioSource != null && streamAudioSource.isPlaying)
-                //{
-                //    StartCoroutine(FadeOutStreamAudio());
-                //}
                 AllowInput();
             });
 
             inputBubble.SetText("");
         }
 
-        private IEnumerator ReqElevenLabs(string text)
+        private IEnumerator RequestElevenLabsClip(string text)
         {
-            yield return elevenLabs.RequestAudio(text, "IO1wenpW5SO7iKhu5V3C");
-            if(elevenLabs.clip != null)
+            yield return elevenLabs.RequestAudio(text);
+            if(elevenLabs.audioClip != null)
             {
-                streamAudioSource.clip = elevenLabs.clip;
+                streamAudioSource.clip = elevenLabs.audioClip;
                 streamAudioSource.Play();
-                elevenLabs.clip = null;
+                yield return streamAudioSource.isPlaying == false;
             }
         }
 
-        private IEnumerator PostText(string text)
+        private IEnumerator RequestJetsTTS(string text)
         {
-            var bodyRaw = System.Text.Encoding.UTF8.GetBytes(text);
-            using (var request = new UnityWebRequest("http://localhost:7777/tts", "POST"))
+            jetsTTS.TextToSpeech(text);
+            if(jetsTTS.audioClip != null)
             {
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerAudioClip("http://localhost:7777/tts", AudioType.WAV);
-                request.SetRequestHeader("Content-Type", "text/plain");
-
-                yield return request.SendWebRequest();
-
-                if (request.result != UnityWebRequest.Result.Success) Debug.Log($"[UnityNeuroSpeech] TTS server probably is not running! Full error message: {request.error}");
-
-                else
-                {
-                    streamAudioSource.clip = DownloadHandlerAudioClip.GetContent(request);
-                    streamAudioSource.Play();
-                }
+                streamAudioSource.clip = jetsTTS.audioClip;
+                streamAudioSource.Play();
+                yield return streamAudioSource.isPlaying == false;
             }
         }
 
